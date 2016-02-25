@@ -73,11 +73,23 @@
                     <navigationItem key="navigationItem" title="Desafio" id="hf7-mW-8Fg">
                         <barButtonItem key="leftBarButtonItem" title="ºC" style="done" id="Rou-4m-Xfc">
                             <color key="tintColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="temperatureButtonClicked:" destination="4Bi-wb-o4y" id="koH-II-czc"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Mapa" id="7ut-dk-H7w">
                             <color key="tintColor" red="0.0" green="0.32318562269210815" blue="0.58480548858642578" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="modeButtonClicked:" destination="4Bi-wb-o4y" id="eYt-5N-UEG"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="listView" destination="2TK-Pc-1eg" id="TL8-Gz-KY1"/>
+                        <outlet property="mapView" destination="hfc-7T-EXW" id="t1k-LW-pi3"/>
+                        <outlet property="modeButton" destination="7ut-dk-H7w" id="Yoc-zx-6Nr"/>
+                        <outlet property="temperatureButton" destination="Rou-4m-Xfc" id="0mc-AI-Q9j"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="299" y="-83"/>
@@ -113,10 +125,10 @@
             </objects>
             <point key="canvasLocation" x="1032" y="-479"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="GdC-1n-WOq">
             <objects>
-                <viewController id="Hkc-2t-YCM" sceneMemberID="viewController">
+                <viewController id="Hkc-2t-YCM" customClass="MapViewController" customModule="Desafio" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WEq-P1-Keb"/>
                         <viewControllerLayoutGuide type="bottom" id="F20-IK-LkI"/>
