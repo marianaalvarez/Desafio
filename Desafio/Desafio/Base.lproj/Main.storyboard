@@ -153,6 +153,9 @@
                             <constraint firstItem="F20-IK-LkI" firstAttribute="top" secondItem="kMd-RS-rhI" secondAttribute="bottom" id="ksZ-5G-Qvc"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="kMd-RS-rhI" id="qMU-HA-Uf1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SjH-sR-xiK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -27,13 +27,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.temperatureButton.title = "ºC"
-        self.modeButton.title = "Mapa"
         
         self.list = true
         self.celsius = true
-
-        self.listView.hidden = false
-        self.mapView.hidden = true
+        self.setListMode()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,13 +42,9 @@ class ViewController: UIViewController {
     @IBAction func modeButtonClicked(sender: AnyObject) {
         self.list = !self.list
         if self.list == true {
-            self.modeButton.title = "Mapa"
-            self.listView.hidden = false
-            self.mapView.hidden = true
+            self.setListMode()
         } else {
-            self.modeButton.title = "Lista"
-            self.listView.hidden = true
-            self.mapView.hidden = false
+            self.setMapMode()
         }
     }
     
@@ -63,7 +56,19 @@ class ViewController: UIViewController {
             self.temperatureButton.title = "ºF"
         }
     }
-
+    
+    func setListMode() {
+        self.modeButton.title = "Mapa"
+        self.listView.hidden = false
+        self.mapView.hidden = true
+        
+    }
+    
+    func setMapMode() {
+        self.modeButton.title = "Lista"
+        self.listView.hidden = true
+        self.mapView.hidden = false
+    }
 
 }
 
