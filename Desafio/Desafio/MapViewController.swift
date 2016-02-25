@@ -61,8 +61,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func updateRegion(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
         let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let span = MKCoordinateSpanMake(0.05, 0.05)
-        let region = MKCoordinateRegion(center: location, span: span)
+        let region = MKCoordinateRegionMakeWithDistance(location, 50000, 50000)
+       
         self.mapView.setRegion(region, animated: true)
         self.mapView.showsUserLocation = true
     }

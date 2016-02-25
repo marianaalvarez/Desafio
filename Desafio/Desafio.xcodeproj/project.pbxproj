@@ -18,6 +18,7 @@
 		05370DEC1C7E8FB800BA524F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05370DEB1C7E8FB800BA524F /* MapViewController.swift */; };
 		05370DEE1C7E948F00BA524F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05370DED1C7E948F00BA524F /* MapKit.framework */; };
 		05370DF01C7E949600BA524F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05370DEF1C7E949600BA524F /* CoreLocation.framework */; };
+		05370DF21C7EBA7D00BA524F /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05370DF11C7EBA7D00BA524F /* CardTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		05370DEB1C7E8FB800BA524F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		05370DED1C7E948F00BA524F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		05370DEF1C7E949600BA524F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		05370DF11C7EBA7D00BA524F /* CardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				05370DB91C7DD56C00BA524F /* ViewController.swift */,
 				05370DE91C7E8EDF00BA524F /* TableViewController.swift */,
 				05370DEB1C7E8FB800BA524F /* MapViewController.swift */,
+				05370DF11C7EBA7D00BA524F /* CardTableViewCell.swift */,
 				05370DBB1C7DD56C00BA524F /* Main.storyboard */,
 				05370DBE1C7DD56C00BA524F /* Assets.xcassets */,
 				05370DC01C7DD56C00BA524F /* LaunchScreen.storyboard */,
@@ -273,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05370DF21C7EBA7D00BA524F /* CardTableViewCell.swift in Sources */,
 				05370DBA1C7DD56C00BA524F /* ViewController.swift in Sources */,
 				05370DB81C7DD56C00BA524F /* AppDelegate.swift in Sources */,
 				05370DEA1C7E8EDF00BA524F /* TableViewController.swift in Sources */,
@@ -422,6 +426,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.ProjetosMariana.Desafio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -433,6 +438,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.ProjetosMariana.Desafio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
