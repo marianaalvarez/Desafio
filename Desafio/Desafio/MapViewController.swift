@@ -16,9 +16,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     let locationManager: CLLocationManager = CLLocationManager()
     let weatherManager = WeatherManager.sharedInstance
-    var mRect: MKMapRect!
+
     
     //MARK: - VARIABLES
+    var mRect: MKMapRect!
+    var currentLocation: CLLocation?
+    var arrayDistances = [Double]()
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -29,18 +32,21 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         self.mapView.delegate = self
         self.setLocationManagerProperties()
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("getCities"), name: "getCities", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("addAnnotations"), name: "reloadData", object: nil)
+        self.setNotificationObservers()
 
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK: - CONTROLLER
+    
+    private func setNotificationObservers() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("getCities"), name: "getCities", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("addAnnotation:"), name: "addAnnotation", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("removeAnnotations"), name: "removeAnnotations", object: nil)
+    }
     
     //MARK: Location Manager
     
@@ -58,6 +64,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.locationManager.stopUpdatingLocation()
         
+        self.currentLocation = locations[0]
         let userLocation = locations[0]
         let latitude = userLocation.coordinate.latitude
         let longitude = userLocation.coordinate.longitude
@@ -97,15 +104,42 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         self.mRect = self.mapView.visibleMapRect
     }
     
-    func addAnnotations() {
-        self.mapView.removeAnnotations(self.mapView.annotations)
-        for item in weatherManager.weatherList {
-            let point = MKPointAnnotation()
-            point.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(item.latitude), CLLocationDegrees(item.longitude))
-            self.mapView.addAnnotation(point)
+    func addAnnotation(notification: NSNotification) {
+        let weather = notification.userInfo!["weather"] as! Weather
+        
+        // Add pin
+        let point = MKPointAnnotation()
+        point.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(weather.latitude), CLLocationDegrees( weather.longitude))
+        self.mapView.addAnnotation(point)
+            
+        // Distance between points
+        let loc = CLLocation(latitude: weather.latitude, longitude: weather.longitude)
+        let dist: CLLocationDistance = (self.currentLocation?.distanceFromLocation(loc))!
+            
+        self.arrayDistances.append(Double(dist))
+        
+        let sortedArray = self.arrayDistances.sort()
+        
+        weatherManager.weatherListSort.removeAll()
+        
+        for var i = 0; i < sortedArray.count; i++ {
+            for var x = 0; x < self.arrayDistances.count; x++ {
+                if sortedArray[i] == self.arrayDistances[x] {
+                    weatherManager.weatherListSort.append(self.weatherManager.weatherList[x])
+                }
+            }
         }
         
-        
+        NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: self)
+    }
+    
+    func removeAnnotations() {
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        self.arrayDistances.removeAll()
+    }
+    
+    func sortFunc(num1: Double, num2: Double) -> Bool {
+        return num1 < num2
     }
     
     //MARK: Bounding Box

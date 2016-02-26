@@ -32,13 +32,14 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return manager.weatherList.count
+        print(manager.weatherListSort.count)
+        return manager.weatherListSort.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Card", forIndexPath: indexPath) as! CardTableViewCell
         
-        let weather = WeatherManager.sharedInstance.weatherList[indexPath.row] as Weather
+        let weather = WeatherManager.sharedInstance.weatherListSort[indexPath.row] as Weather
         
         cell.cityLabel.text = weather.city
         cell.iconImageView.image = UIImage(named: "map")

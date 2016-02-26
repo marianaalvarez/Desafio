@@ -14,6 +14,7 @@ class WeatherManager {
     let apiKey = "d8db38a6094a896d458a8ed6108ad51d"
     
     var weatherList = [Weather]()
+    var weatherListSort = [Weather]()
     
     private init() {
         
@@ -36,12 +37,15 @@ class WeatherManager {
             }
             
             self.weatherList.removeAll()
+            self.weatherListSort.removeAll()
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("removeAnnotations", object: self)
             
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
                 
                 if let list = json["list"] as? [[String: AnyObject]] {
-
+                    
                     for item in list {
                         let weather = Weather()
                         
@@ -55,8 +59,11 @@ class WeatherManager {
                         
                         self.weatherList.append(weather)
                         
+                        let userInfo = ["weather": weather]
+                        
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: self)
+                            NSNotificationCenter.defaultCenter().postNotificationName("addAnnotation", object: self,userInfo: userInfo)
+                            
                         })
                     }
                 }
