@@ -15,6 +15,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     //MARK: - CONSTANTS
     
     let locationManager: CLLocationManager = CLLocationManager()
+    var mRect: MKMapRect!
     
     //MARK: - VARIABLES
     
@@ -25,6 +26,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.mapView.delegate = self
         self.setLocationManagerProperties()
 
     }
@@ -65,6 +67,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
        
         self.mapView.setRegion(region, animated: true)
         self.mapView.showsUserLocation = true
+        
     }
     
     
@@ -85,5 +88,41 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         return pinView
     }
+    
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        self.mRect = self.mapView.visibleMapRect
+        self.getBoundingBox()
+    }
+    
+    //MARK: Bounding Box
+    
+    func getNECoordinate(mRect: MKMapRect) -> CLLocationCoordinate2D {
+        return self.getCoordinateFromMapRectanglePoint(MKMapRectGetMaxX(mRect), y: MKMapRectGetMinY(mRect))
+    }
+    
+    func getNWCoordinate(mRect: MKMapRect) -> CLLocationCoordinate2D {
+        return self.getCoordinateFromMapRectanglePoint(MKMapRectGetMinX(mRect), y: MKMapRectGetMinY(mRect))
+    }
+    
+    func getSECoordinate(mRect: MKMapRect) -> CLLocationCoordinate2D {
+        return self.getCoordinateFromMapRectanglePoint(MKMapRectGetMaxX(mRect), y: MKMapRectGetMaxY(mRect))
+    }
+    
+    func getSWCoordinate(mRect: MKMapRect) -> CLLocationCoordinate2D {
+        return self.getCoordinateFromMapRectanglePoint(MKMapRectGetMinX(mRect), y: MKMapRectGetMaxY(mRect))
+    }
+    
+    func getCoordinateFromMapRectanglePoint(x: Double, y: Double) -> CLLocationCoordinate2D{
+        let swMapPoint: MKMapPoint = MKMapPointMake(x, y)
+        return MKCoordinateForMapPoint(swMapPoint)
+    }
+    
+    func getBoundingBox() {
+        let bottomLeft: CLLocationCoordinate2D = self.getSWCoordinate(self.mRect)
+        let topRight: CLLocationCoordinate2D = self.getNECoordinate(self.mRect)
+        let array = [Double(bottomLeft.longitude), Double(bottomLeft.latitude), Double(topRight.longitude), Double(topRight.latitude)]
+        print(array)
+    }
+    
 
 }
