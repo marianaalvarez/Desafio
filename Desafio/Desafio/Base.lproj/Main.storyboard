@@ -31,7 +31,6 @@
         <!--Desafio-->
         <scene sceneID="hPy-yB-oPO">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="03A-Ap-lar" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="4Bi-wb-o4y" customClass="ViewController" customModule="Desafio" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="V6d-2o-z60"/>
@@ -92,6 +91,7 @@
                         <outlet property="temperatureButton" destination="Rou-4m-Xfc" id="0mc-AI-Q9j"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="03A-Ap-lar" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="299" y="-83"/>
         </scene>

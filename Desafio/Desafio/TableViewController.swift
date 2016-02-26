@@ -9,16 +9,20 @@
 import UIKit
 
 class TableViewController: UITableViewController {
+    
+    var manager = WeatherManager.sharedInstance
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        manager.getCityWeather("São Paulo")
         self.tableView.separatorColor = UIColor.clearColor()
         self.tableView.backgroundColor = UIColor.darkGrayColor()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("didGetCity"), name: "reloadData", object: nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -28,23 +32,29 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return manager.weatherList.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Card", forIndexPath: indexPath) as! CardTableViewCell
         
-        cell.cityLabel.text = "São Paulo"
+        let weather = WeatherManager.sharedInstance.weatherList[indexPath.row] as Weather
+        
+        cell.cityLabel.text = weather.cityName
         cell.iconImageView.image = UIImage(named: "map")
-        cell.skyLabel.text = "céu aberto"
-        cell.minLabel.text = "min: 20º"
-        cell.minLabel.text = "max: 30º"
-        cell.temperatureLabel.text = "27º"
+        cell.skyLabel.text = weather.tempDescription
+        cell.minLabel.text = String(weather.minTemp)
+        cell.maxLabel.text = String(weather.maxTemp)
+        cell.temperatureLabel.text = String(weather.currentTemp)
         cell.cardView.layer.cornerRadius = 10
         cell.cardView.layer.masksToBounds = true
         
         return cell
         
+    }
+    
+    func didGetCity() {
+        self.tableView.reloadData()
     }
 
 }
