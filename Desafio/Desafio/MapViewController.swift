@@ -15,6 +15,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     //MARK: - CONSTANTS
     
     let locationManager: CLLocationManager = CLLocationManager()
+    let weatherManager = WeatherManager.sharedInstance
     var mRect: MKMapRect!
     
     //MARK: - VARIABLES
@@ -28,6 +29,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         self.mapView.delegate = self
         self.setLocationManagerProperties()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("getCities"), name: "getCities", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("addAnnotations"), name: "reloadData", object: nil)
 
     }
 
@@ -91,7 +95,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         self.mRect = self.mapView.visibleMapRect
-        self.getBoundingBox()
+    }
+    
+    func addAnnotations() {
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        for item in weatherManager.weatherList {
+            let point = MKPointAnnotation()
+            point.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(item.latitude), CLLocationDegrees(item.longitude))
+            self.mapView.addAnnotation(point)
+        }
+        
+        
     }
     
     //MARK: Bounding Box
@@ -117,12 +131,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         return MKCoordinateForMapPoint(swMapPoint)
     }
     
-    func getBoundingBox() {
+    func getCities() {
         let bottomLeft: CLLocationCoordinate2D = self.getSWCoordinate(self.mRect)
         let topRight: CLLocationCoordinate2D = self.getNECoordinate(self.mRect)
         let array = [Double(bottomLeft.longitude), Double(bottomLeft.latitude), Double(topRight.longitude), Double(topRight.latitude)]
         print(array)
+        weatherManager.getCities(String(Double(bottomLeft.longitude)), bottom: String(Double(bottomLeft.latitude)), right: String(Double(topRight.longitude)), top: String(Double(topRight.latitude)))
     }
-    
 
 }

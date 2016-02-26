@@ -14,11 +14,11 @@ class TableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        manager.getCityWeather("São Paulo")
         self.tableView.separatorColor = UIColor.clearColor()
         self.tableView.backgroundColor = UIColor.darkGrayColor()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("didGetCity"), name: "reloadData", object: nil)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,12 +40,12 @@ class TableViewController: UITableViewController {
         
         let weather = WeatherManager.sharedInstance.weatherList[indexPath.row] as Weather
         
-        cell.cityLabel.text = weather.cityName
+        cell.cityLabel.text = weather.city
         cell.iconImageView.image = UIImage(named: "map")
-        cell.skyLabel.text = weather.tempDescription
-        cell.minLabel.text = String(weather.minTemp)
-        cell.maxLabel.text = String(weather.maxTemp)
-        cell.temperatureLabel.text = String(weather.currentTemp)
+        cell.descriptionLabel.text = weather.tempDescription
+        cell.minLabel.text = String(weather.tempMin)
+        cell.maxLabel.text = String(weather.tempMax)
+        cell.temperatureLabel.text = String(weather.temp)
         cell.cardView.layer.cornerRadius = 10
         cell.cardView.layer.masksToBounds = true
         

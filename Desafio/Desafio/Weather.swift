@@ -10,18 +10,25 @@ import Foundation
 
 class Weather: NSObject {
     
-    var cityName: String!
-    var currentTemp: Double!
-    var minTemp: Double!
-    var maxTemp: Double!
+    var city: String!
+    var temp: Double!
+    var tempMin: Double!
+    var tempMax: Double!
     var tempDescription: String!
+    var latitude: Double!
+    var longitude: Double!
     
-    init(cityName: String, currentTemp: Double, minTemp: Double, maxTemp: Double, tempDescription: String) {
-        self.cityName = cityName
-        self.currentTemp = currentTemp
-        self.minTemp = minTemp
-        self.maxTemp = maxTemp
-        self.tempDescription = tempDescription
+    override init() {
+    }
+    
+    init(city: String, temp: Double, tempMin: Double, tempMax: Double, description: String, lat: Double, lon: Double) {
+        self.city = city
+        self.temp = temp
+        self.tempMin = tempMin
+        self.tempMax = tempMax
+        self.tempDescription = description
+        self.latitude = lat
+        self.longitude = lon
     }
 
 }

@@ -46,6 +46,7 @@ class ViewController: UIViewController {
         } else {
             self.setMapMode()
         }
+        NSNotificationCenter.defaultCenter().postNotificationName("getCities", object: self)
     }
     
     @IBAction func temperatureButtonClicked(sender: AnyObject) {

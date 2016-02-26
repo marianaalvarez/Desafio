@@ -13,7 +13,7 @@ class CardTableViewCell: UITableViewCell {
     @IBOutlet weak var cardView: UIView!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var skyLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var minLabel: UILabel!
     @IBOutlet weak var maxLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!

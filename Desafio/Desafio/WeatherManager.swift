@@ -19,73 +19,50 @@ class WeatherManager {
         
     }
     
-    func getCityWeather(city: String) {
-        
-        let cityEscaped = city.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
-        let path = "http://api.openweathermap.org/data/2.5/weather?q=\(cityEscaped!)&appid=\(apiKey)"
-        let url = NSURL(string: path)
-        let session = NSURLSession.sharedSession()
-
-        let task = session.dataTaskWithURL(url!) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
-            
-            if let httpResponse = response as? NSHTTPURLResponse {
-                print(httpResponse.statusCode)
-            }
-            
-            let json = JSON(data: data!)
-            let temp = json["main"]["temp"].double
-            let tempMin = json["main"]["temp_min"].double
-            let tempMax = json["main"]["temp_max"].double
-            let name = json["name"].string
-            let description = json["weather"][0]["description"].string!
-            
-            print("temp: \(temp!)")
-            print("tempMin: \(tempMin!)")
-            print("tempMax: \(tempMax!)")
-            print("descripstion: \(description)")
-            
-            let weather = Weather(cityName: name!, currentTemp: temp!, minTemp: tempMin!, maxTemp: tempMax!, tempDescription: description)
-            self.weatherList.append(weather)
-            
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: self)
-            })
-            
-        }
-        task.resume()
-    }
-    
     func getCities(left: String, bottom: String, right: String, top: String) {
         
-        let path = "http://api.openweathermap.org/data/2.5/box/city?bbox=\(left),\(bottom),\(right),\(top)&appid=\(apiKey)"
+        let path = "http://api.openweathermap.org/data/2.5/box/city?bbox=\(left),\(bottom),\(right),\(top),10&appid=\(apiKey)"
         let url = NSURL(string: path)
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithURL(url!) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
+            if error != nil {
+                print("erro")
+            }
+            
             if let httpResponse = response as? NSHTTPURLResponse {
                 print(httpResponse.statusCode)
             }
             
-            let json = JSON(data: data!)
-            let temp = json["main"]["temp"].double
-            let tempMin = json["main"]["temp_min"].double
-            let tempMax = json["main"]["temp_max"].double
-            let name = json["name"].string
-            let description = json["weather"][0]["description"].string!
+            self.weatherList.removeAll()
             
-            print("temp: \(temp!)")
-            print("tempMin: \(tempMin!)")
-            print("tempMax: \(tempMax!)")
-            print("descripstion: \(description)")
-            
-            let weather = Weather(cityName: name!, currentTemp: temp!, minTemp: tempMin!, maxTemp: tempMax!, tempDescription: description)
-            self.weatherList.append(weather)
-            
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: self)
-            })
-            
+            do {
+                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+                
+                if let list = json["list"] as? [[String: AnyObject]] {
+
+                    for item in list {
+                        let weather = Weather()
+                        
+                        weather.city = item["name"] as? String
+                        weather.temp = item["main"]!["temp"] as? Double
+                        weather.tempMin = item["main"]!["temp_min"] as? Double
+                        weather.tempMax = item["main"]!["temp_max"] as? Double
+                        weather.tempDescription = item["weather"]![0]["description"] as? String
+                        weather.latitude = item["coord"]!["lat"] as? Double
+                        weather.longitude = item["coord"]!["lon"] as? Double
+                        
+                        self.weatherList.append(weather)
+                        
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: self)
+                        })
+                    }
+                }
+            } catch {
+                print("error serializing JSON: \(error)")
+            }
         }
         task.resume()
     }

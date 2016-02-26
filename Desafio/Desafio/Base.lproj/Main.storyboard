@@ -235,10 +235,10 @@
                                 <connections>
                                     <outlet property="cardView" destination="on2-EY-ROl" id="Nur-vB-PQ6"/>
                                     <outlet property="cityLabel" destination="qrQ-J6-g30" id="i73-bo-ebX"/>
+                                    <outlet property="descriptionLabel" destination="AQs-KP-xGu" id="Bdt-ZC-Qcc"/>
                                     <outlet property="iconImageView" destination="ilC-ro-N7c" id="cSn-jF-AoX"/>
                                     <outlet property="maxLabel" destination="FjH-Y0-B0n" id="En6-4q-htc"/>
                                     <outlet property="minLabel" destination="Ibu-vl-tky" id="O5Y-t1-wMh"/>
-                                    <outlet property="skyLabel" destination="AQs-KP-xGu" id="km5-vc-hoG"/>
                                     <outlet property="temperatureLabel" destination="Kni-zT-ZZG" id="4dR-lI-eLi"/>
                                 </connections>
                             </tableViewCell>
