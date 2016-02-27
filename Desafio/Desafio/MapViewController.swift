@@ -22,6 +22,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var mRect: MKMapRect!
     var currentLocation: CLLocation?
     var arrayDistances = [Double]()
+    var region = MKCoordinateRegion()
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -43,7 +44,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     //MARK: - CONTROLLER
     
     private func setNotificationObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("getCities"), name: "getCities", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("addAnnotation:"), name: "addAnnotation", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("removeAnnotations"), name: "removeAnnotations", object: nil)
     }
@@ -74,7 +74,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func updateRegion(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
         let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let region = MKCoordinateRegionMakeWithDistance(location, 50000, 50000)
+        self.region = MKCoordinateRegionMakeWithDistance(location, 50000, 50000)
        
         self.mapView.setRegion(region, animated: true)
         self.mapView.showsUserLocation = true
@@ -131,6 +131,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
         
         NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: self)
+
     }
     
     func removeAnnotations() {
@@ -172,5 +173,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         print(array)
         weatherManager.getCities(String(Double(bottomLeft.longitude)), bottom: String(Double(bottomLeft.latitude)), right: String(Double(topRight.longitude)), top: String(Double(topRight.latitude)))
     }
+    
+    func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
+        let lat1 = String(self.mapView.region.center.latitude)
+        let lat2 = String(self.region.center.latitude)
+        let lon1 = String(self.mapView.region.center.longitude)
+        let lon2 = String(self.region.center.longitude)
+
+        if lat1 == lat2 && lon1 == lon2 {
+            self.getCities()
+        }
+    }
+    
 
 }

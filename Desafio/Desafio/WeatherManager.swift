@@ -22,7 +22,7 @@ class WeatherManager {
     
     func getCities(left: String, bottom: String, right: String, top: String) {
         
-        let path = "http://api.openweathermap.org/data/2.5/box/city?bbox=\(left),\(bottom),\(right),\(top),10&appid=\(apiKey)"
+        let path = "http://api.openweathermap.org/data/2.5/box/city?bbox=\(left),\(bottom),\(right),\(top),100&appid=\(apiKey)"
         let url = NSURL(string: path)
         let session = NSURLSession.sharedSession()
         
