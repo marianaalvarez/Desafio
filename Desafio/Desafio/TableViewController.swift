@@ -44,9 +44,9 @@ class TableViewController: UITableViewController {
         cell.cityLabel.text = weather.city
         cell.iconImageView.image = UIImage(named: "map")
         cell.descriptionLabel.text = weather.tempDescription
-        cell.minLabel.text = String(weather.tempMin)
-        cell.maxLabel.text = String(weather.tempMax)
-        cell.temperatureLabel.text = String(weather.temp)
+        cell.minLabel.text = "\(Int(weather.tempMin))º"
+        cell.maxLabel.text = "\(Int(weather.tempMax))º"
+        cell.temperatureLabel.text = "\(Int(weather.temp))º"
         cell.cardView.layer.cornerRadius = 10
         cell.cardView.layer.masksToBounds = true
         

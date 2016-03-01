@@ -46,6 +46,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     private func setNotificationObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("addAnnotation:"), name: "addAnnotation", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("removeAnnotations"), name: "removeAnnotations", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("getCities"), name: "getCities", object: nil)
     }
     
     //MARK: Location Manager
@@ -109,7 +110,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         // Add pin
         let point = MKPointAnnotation()
-        point.title = "\(weather.temp)º"
+        point.title = "\(Int(weather.temp))º"
         point.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(weather.latitude), CLLocationDegrees( weather.longitude))
         self.mapView.addAnnotation(point)
             

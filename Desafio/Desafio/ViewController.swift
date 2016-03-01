@@ -9,9 +9,13 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    // MARK: - CONSTANTS
+    
+    let manager = WeatherManager.sharedInstance
 
     // MARK: - VARIABLES
-
+    
     var list: Bool!
     var celsius: Bool!
     
@@ -25,12 +29,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.temperatureButton.title = "ºC"
-        
         self.list = true
         self.celsius = true
         self.setListMode()
+        self.setUnitCelsius()
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,10 +53,12 @@ class ViewController: UIViewController {
     @IBAction func temperatureButtonClicked(sender: AnyObject) {
         self.celsius = !self.celsius
         if self.celsius == true {
-            self.temperatureButton.title = "ºC"
+            self.setUnitCelsius()
         } else {
-            self.temperatureButton.title = "ºF"
+            self.setUnitFahrenheit()
+            
         }
+        NSNotificationCenter.defaultCenter().postNotificationName("getCities", object: self)
     }
     
     func setListMode() {
@@ -68,6 +72,16 @@ class ViewController: UIViewController {
         self.modeButton.title = "Lista"
         self.listView.hidden = true
         self.mapView.hidden = false
+    }
+    
+    func setUnitCelsius() {
+        self.temperatureButton.title = "ºC"
+        self.manager.units = "metric"
+    }
+    
+    func setUnitFahrenheit() {
+        self.temperatureButton.title = "ºF"
+        self.self.manager.units = "imperial"
     }
 
 }

@@ -13,6 +13,7 @@ class WeatherManager {
     static let sharedInstance = WeatherManager()
     let apiKey = "d8db38a6094a896d458a8ed6108ad51d"
     
+    var units: String!
     var weatherList = [Weather]()
     var weatherListSort = [Weather]()
     
@@ -22,7 +23,7 @@ class WeatherManager {
     
     func getCities(left: String, bottom: String, right: String, top: String) {
         
-        let path = "http://api.openweathermap.org/data/2.5/box/city?bbox=\(left),\(bottom),\(right),\(top),100&appid=\(apiKey)"
+        let path = "http://api.openweathermap.org/data/2.5/box/city?bbox=\(left),\(bottom),\(right),\(top),100&units=\(units)&appid=\(apiKey)"
         let url = NSURL(string: path)
         let session = NSURLSession.sharedSession()
         
