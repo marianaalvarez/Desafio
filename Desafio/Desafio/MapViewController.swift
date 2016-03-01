@@ -94,8 +94,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
         
         pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-        
         pinView!.pinTintColor = UIColor.redColor()
+        pinView!.canShowCallout = true
         
         return pinView
     }
@@ -109,6 +109,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         // Add pin
         let point = MKPointAnnotation()
+        point.title = "\(weather.temp)º"
         point.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(weather.latitude), CLLocationDegrees( weather.longitude))
         self.mapView.addAnnotation(point)
             
