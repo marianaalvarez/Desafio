@@ -21,7 +21,6 @@
 		05370DF21C7EBA7D00BA524F /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05370DF11C7EBA7D00BA524F /* CardTableViewCell.swift */; };
 		05370DF41C7F98E200BA524F /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05370DF31C7F98E200BA524F /* WeatherManager.swift */; };
 		05370DF61C7F991100BA524F /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05370DF51C7F991100BA524F /* Weather.swift */; };
-		05370DFA1C7FAB4F00BA524F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05370DF91C7FAB4F00BA524F /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +61,6 @@
 		05370DF11C7EBA7D00BA524F /* CardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		05370DF31C7F98E200BA524F /* WeatherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		05370DF51C7F991100BA524F /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
-		05370DF91C7FAB4F00BA524F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +115,6 @@
 		05370DB61C7DD56C00BA524F /* Desafio */ = {
 			isa = PBXGroup;
 			children = (
-				05370DF91C7FAB4F00BA524F /* SwiftyJSON.swift */,
 				05370DF71C7F996100BA524F /* Entities */,
 				05370DF81C7F997400BA524F /* ViewControllers */,
 				05370DB71C7DD56C00BA524F /* AppDelegate.swift */,
@@ -304,7 +301,6 @@
 				05370DF21C7EBA7D00BA524F /* CardTableViewCell.swift in Sources */,
 				05370DF41C7F98E200BA524F /* WeatherManager.swift in Sources */,
 				05370DBA1C7DD56C00BA524F /* ViewController.swift in Sources */,
-				05370DFA1C7FAB4F00BA524F /* SwiftyJSON.swift in Sources */,
 				05370DB81C7DD56C00BA524F /* AppDelegate.swift in Sources */,
 				05370DEA1C7E8EDF00BA524F /* TableViewController.swift in Sources */,
 				05370DF61C7F991100BA524F /* Weather.swift in Sources */,

@@ -23,6 +23,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var currentLocation: CLLocation?
     var arrayDistances = [Double]()
     var region = MKCoordinateRegion()
+    var mapLoaded = false
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -103,6 +104,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         self.mRect = self.mapView.visibleMapRect
+        if mapLoaded == true {
+            self.currentLocation = CLLocation(latitude: self.mapView.centerCoordinate.latitude, longitude: self.mapView.centerCoordinate.longitude)
+            self.getCities()
+        }
     }
     
     func addAnnotation(notification: NSNotification) {
@@ -184,6 +189,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
         if lat1 == lat2 && lon1 == lon2 {
             self.getCities()
+            self.mapLoaded = true
         }
     }
     
