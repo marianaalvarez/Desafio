@@ -77,7 +77,7 @@
                                 <action selector="temperatureButtonClicked:" destination="4Bi-wb-o4y" id="koH-II-czc"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Mapa" id="7ut-dk-H7w">
+                        <barButtonItem key="rightBarButtonItem" image="map" id="7ut-dk-H7w">
                             <color key="tintColor" red="0.0" green="0.32318562269210815" blue="0.58480548858642578" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="modeButtonClicked:" destination="4Bi-wb-o4y" id="eYt-5N-UEG"/>
