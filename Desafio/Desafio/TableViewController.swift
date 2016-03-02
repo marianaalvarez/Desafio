@@ -42,10 +42,10 @@ class TableViewController: UITableViewController {
         let weather = WeatherManager.sharedInstance.weatherListSort[indexPath.row] as Weather
         
         cell.cityLabel.text = weather.city
-        cell.iconImageView.image = UIImage(named: "map")
+        cell.iconImageView.image = UIImage(named: weather.icon)
         cell.descriptionLabel.text = weather.tempDescription
-        cell.minLabel.text = "\(Int(weather.tempMin))º"
-        cell.maxLabel.text = "\(Int(weather.tempMax))º"
+        cell.minLabel.text = "min: \(Int(weather.tempMin))º"
+        cell.maxLabel.text = "max: \(Int(weather.tempMax))º"
         cell.temperatureLabel.text = "\(Int(weather.temp))º"
         cell.cardView.layer.cornerRadius = 10
         cell.cardView.layer.masksToBounds = true

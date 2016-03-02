@@ -15,18 +15,20 @@ class Weather: NSObject {
     var tempMin: Double!
     var tempMax: Double!
     var tempDescription: String!
+    var icon: String!
     var latitude: Double!
     var longitude: Double!
     
     override init() {
     }
     
-    init(city: String, temp: Double, tempMin: Double, tempMax: Double, description: String, lat: Double, lon: Double) {
+    init(city: String, temp: Double, tempMin: Double, tempMax: Double, description: String, icon: String, lat: Double, lon: Double) {
         self.city = city
         self.temp = temp
         self.tempMin = tempMin
         self.tempMax = tempMax
         self.tempDescription = description
+        self.icon = icon
         self.latitude = lat
         self.longitude = lon
     }

@@ -62,14 +62,14 @@ class ViewController: UIViewController {
     }
     
     func setListMode() {
-        self.modeButton.title = "Mapa"
+        self.modeButton.image = UIImage(named: "map")
         self.listView.hidden = false
         self.mapView.hidden = true
         
     }
     
     func setMapMode() {
-        self.modeButton.title = "Lista"
+        self.modeButton.image = UIImage(named: "list")
         self.listView.hidden = true
         self.mapView.hidden = false
     }

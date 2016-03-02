@@ -55,6 +55,7 @@ class WeatherManager {
                         weather.tempMin = item["main"]!["temp_min"] as? Double
                         weather.tempMax = item["main"]!["temp_max"] as? Double
                         weather.tempDescription = item["weather"]![0]["description"] as? String
+                        weather.icon = item["weather"]![0]["icon"] as? String
                         weather.latitude = item["coord"]!["lat"] as? Double
                         weather.longitude = item["coord"]!["lon"] as? Double
                         
