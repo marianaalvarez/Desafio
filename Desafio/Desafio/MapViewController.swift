@@ -99,6 +99,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         pinView!.pinTintColor = UIColor.redColor()
         pinView!.canShowCallout = true
         
+        let imageView = UIImageView(frame: CGRectMake(0, 0, 30, 30))
+        pinView?.leftCalloutAccessoryView = imageView
+        
+        for item in weatherManager.weatherListSort {
+            let string = String(Int(item.temp)) + "º"
+            if string == annotation.title!! {
+                imageView.image = UIImage(named: item.icon)
+            }
+        }
+        
         return pinView
     }
     
