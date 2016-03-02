@@ -34,44 +34,48 @@ class WeatherManager {
             }
             
             if let httpResponse = response as? NSHTTPURLResponse {
-                print(httpResponse.statusCode)
-            }
-            
-            self.weatherList.removeAll()
-            self.weatherListSort.removeAll()
-            
-            NSNotificationCenter.defaultCenter().postNotificationName("removeAnnotations", object: self)
-            
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
-                
-                if let list = json["list"] as? [[String: AnyObject]] {
+                if httpResponse.statusCode != 200 {
+                    print("Erro HTTPResponse")
+                } else {
+                    self.weatherList.removeAll()
+                    self.weatherListSort.removeAll()
                     
-                    for item in list {
-                        let weather = Weather()
+                    NSNotificationCenter.defaultCenter().postNotificationName("removeAnnotations", object: self)
+                    
+                    do {
+                        let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
                         
-                        weather.city = item["name"] as? String
-                        weather.temp = item["main"]!["temp"] as? Double
-                        weather.tempMin = item["main"]!["temp_min"] as? Double
-                        weather.tempMax = item["main"]!["temp_max"] as? Double
-                        weather.tempDescription = item["weather"]![0]["description"] as? String
-                        weather.icon = item["weather"]![0]["icon"] as? String
-                        weather.latitude = item["coord"]!["lat"] as? Double
-                        weather.longitude = item["coord"]!["lon"] as? Double
-                        
-                        self.weatherList.append(weather)
-                        
-                        let userInfo = ["weather": weather]
-                        
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            NSNotificationCenter.defaultCenter().postNotificationName("addAnnotation", object: self,userInfo: userInfo)
+                        if let list = json["list"] as? [[String: AnyObject]] {
                             
-                        })
+                            for item in list {
+                                let weather = Weather()
+                                
+                                weather.city = item["name"] as? String
+                                weather.temp = item["main"]!["temp"] as? Double
+                                weather.tempMin = item["main"]!["temp_min"] as? Double
+                                weather.tempMax = item["main"]!["temp_max"] as? Double
+                                weather.tempDescription = item["weather"]![0]["description"] as? String
+                                weather.icon = item["weather"]![0]["icon"] as? String
+                                weather.latitude = item["coord"]!["lat"] as? Double
+                                weather.longitude = item["coord"]!["lon"] as? Double
+                                
+                                self.weatherList.append(weather)
+                                
+                                let userInfo = ["weather": weather]
+                                
+                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                    NSNotificationCenter.defaultCenter().postNotificationName("addAnnotation", object: self,userInfo: userInfo)
+                                    
+                                })
+                            }
+                        }
+                    } catch {
+                        print("error serializing JSON: \(error)")
                     }
+
                 }
-            } catch {
-                print("error serializing JSON: \(error)")
             }
+            
         }
         task.resume()
     }

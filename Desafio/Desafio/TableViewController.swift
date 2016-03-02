@@ -32,7 +32,6 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(manager.weatherListSort.count)
         return manager.weatherListSort.count
     }
     

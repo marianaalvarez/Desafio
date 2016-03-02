@@ -24,6 +24,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var arrayDistances = [Double]()
     var region = MKCoordinateRegion()
     var mapLoaded = false
+    var index: Int?
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -88,6 +89,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
+        print(annotation.title!!)
         let reuseId = "pin"
         var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
         
@@ -102,9 +104,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let imageView = UIImageView(frame: CGRectMake(0, 0, 30, 30))
         pinView?.leftCalloutAccessoryView = imageView
         
-        for item in weatherManager.weatherListSort {
-            let string = String(Int(item.temp)) + "º"
-            if string == annotation.title!! {
+        for item in weatherManager.weatherListSort  {
+            let lat1 = String(pinView!.annotation!.coordinate.latitude)
+            let lat2 = String(item.latitude)
+            let lon1 = String(pinView!.annotation!.coordinate.longitude)
+            let lon2 = String(item.longitude)
+            
+            if lat1 == lat2 && lon1 == lon2 {
                 imageView.image = UIImage(named: item.icon)
             }
         }
@@ -126,9 +132,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         // Add pin
         let point = MKPointAnnotation()
         point.title = "\(Int(weather.temp))º"
+        print(point.title)
         point.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(weather.latitude), CLLocationDegrees( weather.longitude))
         self.mapView.addAnnotation(point)
-            
+
+        
         // Distance between points
         let loc = CLLocation(latitude: weather.latitude, longitude: weather.longitude)
         let dist: CLLocationDistance = (self.currentLocation?.distanceFromLocation(loc))!
